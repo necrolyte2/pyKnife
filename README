@@ -1,0 +1,5 @@
+Python wrapper for chef's knife
+
+Still learning all the best practices so not sure about the folder structure
+You can run tests by running
+python -m pyKnife.tests.<module>
