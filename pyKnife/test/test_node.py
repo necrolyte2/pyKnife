@@ -1,19 +1,26 @@
 import unittest
 from ..pyKnife import pyKnife, KnifeCommandError
 
-class TestShow( unittest.TestCase ):
+class NodeTest( unittest.TestCase ):
     def setUp( self ):
        self.knife = pyKnife()
-       self.basic_keys = ['NodeName', 'Environment', 'FQDN', 'IP', 'RunList', 'Roles', 'Recipes', 'Platform']
 
+class TestList( NodeTest ):
+    def test_list( self ):
+        # Make sure a list of nodes is returned
+        info = self.knife.node.list()
+        self.assertEqual( type( [] ), type( info ) )
+
+class TestShow( NodeTest ):
     def test_no_node( self ):
         # Make sure correct return for no node found
         self.assertRaises( KnifeCommandError, self.knife.node.show, "NoNodeForThisName" )
 
     def test_found_node( self ):
         # Make sure basic node info is returned for node
+        basic_keys = ['NodeName', 'Environment', 'FQDN', 'IP', 'RunList', 'Roles', 'Recipes', 'Platform']
         info = self.knife.node.show( "chef" )
-        self.assertEqual( set( info.keys() ), set( self.basic_keys ) )
+        self.assertEqual( set( info.keys() ), set( basic_keys ) )
 
     def test_attribute( self ):
         # Make sure only the attribute requested is returned

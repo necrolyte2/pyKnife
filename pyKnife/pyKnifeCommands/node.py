@@ -95,7 +95,8 @@ class Node:
         raise NotImplementedError
 
     def list( self ):
-        raise NotImplementedError
+        command = ['node', 'list']
+        return json.loads( self.knife.command( command ) )
 
     def edit( self, NODE ):
         raise NotImplementedError
